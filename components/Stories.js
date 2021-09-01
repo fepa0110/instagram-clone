@@ -1,6 +1,18 @@
 import React from 'react'
-import { FlatList, StyleSheet, Text, TouchableOpacity, TouchableHighlight, View } from 'react-native'
-import { Avatar } from 'react-native-elements';
+import {
+    FlatList,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    TouchableHighlight,
+    View,
+} from 'react-native'
+import {
+    Avatar,
+    Badge,
+    withBadge,
+    Icon
+} from 'react-native-elements';
 import tw from 'tailwind-react-native-classnames';
 
 const stories = [
@@ -8,7 +20,7 @@ const stories = [
         id: "1",
         image: "",
         backgroundColor: "navy",
-        title: "Me"
+        title: "-A"
     },
     {
         id: "2",
@@ -44,31 +56,56 @@ const stories = [
 
 const Stories = () => {
     return (
-        <View style={tw``}>
-            <FlatList 
+        <View style={{ flexDirection: "row" }}>
+            <FlatList
                 horizontal
                 data={stories}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity style={tw``}>
-                        <View style={[tw`p-2`,{}]}>
-                            <Avatar
-                                size={65}
-                                rounded
-                                title={item.title}
-                                overlayContainerStyle={{ 
-                                    backgroundColor: item.backgroundColor, 
-                                    borderWidth: 3,
-                                    borderStyle: "solid",
-                                    // borderTopColor: "#8a49a1",
-                                    borderColor: "#c1558b",
-                                    // borderBottomColor: "#e56969",
-                                    // borderLeftColor: "#ffc273"
-                                }}
-                            />
-                            <Text style={tw`text-center`}>{item.title}</Text>
-                        </View>
-                    </TouchableOpacity>
+                    item.id == 1 ? (
+                        <TouchableHighlight style={tw``}>
+                            <View style={[tw`p-2`, {}]}>
+                                <Avatar
+                                    size={65}
+                                    rounded
+                                    overlayContainerStyle={{
+                                        backgroundColor: "navy",
+                                    }}
+                                />
+                                <Badge
+                                    value="+"
+                                    status="primary"
+                                    containerStyle={{ 
+                                        position: 'absolute', 
+                                        bottom: 10, 
+                                        right: 4,
+                                        borderRadius: 20,
+                                        borderWidth: 2,
+                                        borderColor: "white" }} />
+                            </View>
+                        </TouchableHighlight>
+                    ):
+                    (
+                        <TouchableOpacity style={tw``}>
+                            <View style={[tw`p-2`, {}]}>
+                                <Avatar
+                                    size={65}
+                                    rounded
+                                    title={item.title}
+                                    overlayContainerStyle={{
+                                        backgroundColor: item.backgroundColor,
+                                        borderWidth: 3,
+                                        borderStyle: "solid",
+                                        // borderTopColor: "#8a49a1",
+                                        borderColor: "#c1558b",
+                                        // borderBottomColor: "#e56969",
+                                        // borderLeftColor: "#ffc273"
+                                    }}
+                                />
+                                <Text style={tw`text-center`}>{item.title}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )
                 )}
             />
         </View>
